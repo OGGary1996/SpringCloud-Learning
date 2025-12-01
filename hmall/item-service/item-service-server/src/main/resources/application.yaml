@@ -1,9 +1,9 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   application:
-    name: cart-service
+    name: item-service
   profiles:
     active: dev
   main:
@@ -25,6 +25,8 @@ mybatis-plus:
     db-config:
       update-strategy: not_null
       id-type: auto
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.hmall.item.domain.po
 
 logging:
   level:
@@ -37,18 +39,12 @@ logging:
 knife4j:
   enable: true
   openapi:
-    title: Hmall cart service APIs Documentation
-    description: "Hmall cart service APIs Documentation"
+    title: Hmall item service APIs Documentation
+    description: "Hmall item service APIs Documentation"
     version: v1.0.0
     group:
       default:
         group-name: default
         api-rule: package
         api-rule-resources:
-          - com.hmall.cart.controller
-
-feign:
-  client:
-    config:
-      default:
-        loggerLevel: ${hm.feign.client.config.default.loggerLevel}
+          - com.hmall.item.controller

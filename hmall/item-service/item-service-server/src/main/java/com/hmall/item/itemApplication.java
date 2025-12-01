@@ -1,17 +1,15 @@
-package com.hmall.cart;
+package com.hmall.item;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@MapperScan("com.hmall.cart.mapper")
+@MapperScan("com.hmall.item.mapper")
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.hmall.item.api.client")
-public class cartApplication {
+public class itemApplication {
     public static void main(String[] args) {
-        SpringApplication.run(cartApplication.class, args);
+        SpringApplication.run(itemApplication.class, args);
     }
 }

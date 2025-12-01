@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.heima</groupId>
-        <artifactId>hmall</artifactId>
+        <artifactId>item-service</artifactId>
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>cart-service</artifactId>
+    <artifactId>item-service-api</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -19,34 +19,6 @@
     </properties>
 
     <dependencies>
-        <!-- item-service-server -->
-        <dependency>
-            <groupId>com.heima</groupId>
-            <artifactId>item-service-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <!--common-->
-        <dependency>
-            <groupId>com.heima</groupId>
-            <artifactId>hm-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <!--web-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!--数据库-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!--mybatis-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
         <!-- Spring Cloud Alibaba -  Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -62,7 +34,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
-
     </dependencies>
 
 </project>
