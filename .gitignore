@@ -18,3 +18,4 @@ Thumbs.db
 
 # config files
 **/src/main/resources/application-*.yaml
+**/src/main/resources/backup/*.yaml

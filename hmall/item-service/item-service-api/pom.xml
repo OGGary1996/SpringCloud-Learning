@@ -19,11 +19,13 @@
     </properties>
 
     <dependencies>
-        <!-- Spring Cloud Alibaba -  Nacos -->
+        <!--common-->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>com.heima</groupId>
+            <artifactId>hm-common</artifactId>
+            <version>1.0.0</version>
         </dependency>
+
         <!-- openFeign -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

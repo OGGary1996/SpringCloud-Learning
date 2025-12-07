@@ -1,11 +1,11 @@
 package com.hmall.item.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hmall.common.domain.dto.OrderDetailDTO;
 import com.hmall.common.exception.BizIllegalException;
 import com.hmall.common.utils.BeanUtils;
 
 import com.hmall.item.api.dto.ItemDTO;
-import com.hmall.item.domain.dto.OrderDetailDTO;
 import com.hmall.item.domain.po.Item;
 import com.hmall.item.mapper.ItemMapper;
 import com.hmall.item.service.IItemService;
@@ -18,8 +18,6 @@ import java.util.List;
  * <p>
  * 商品表 服务实现类
  * </p>
- *
- * @author 虎哥
  */
 @Service
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements IItemService {

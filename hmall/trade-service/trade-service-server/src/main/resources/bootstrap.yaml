@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: trade-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://localhost:8848
+      config:
+        server-addr: http://localhost:8848
+        # 1. 当前环境(namespace)，应用在 dev 环境下运行
+        extension-configs:
+          - data-id: trade-service-dev.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+
+        # 2. 加载 public namespace 下的 shared（关键写法：必须显式指定 namespace）
+        shared-configs:
+          - data-id: shared-jdbc.yaml
+            group: SHARED_GROUP
+            refresh: true
+          - data-id: shared-mybatis.yaml
+            group: SHARED_GROUP
+            refresh: true
+          - data-id: shared-logging.yaml
+            group: SHARED_GROUP
+            refresh: true
+          - data-id: shared-swagger.yaml
+            group: SHARED_GROUP
+            refresh: true
+          - data-id: shared-feign.yaml
+            group: SHARED_GROUP
+            refresh: true
+
+    # sentinel 配置
+    sentinel:
+      transport:
+        dashboard: localhost:8090
+      http-method-specify: true # 簇点区分请求方法，而不是仅仅区分 URL，因为有些 URL 可能相同，但请求方法不同
+      eager: true # 提前初始化 Sentinel 组件，避免第一次请求时的性能损
