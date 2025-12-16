@@ -124,7 +124,7 @@ public class CartServiceImpl extends ServiceImpl<CartMapper, Cart> implements IC
 //        }
 
         // 2.1-2.3 优化：使用openfeign优化调用商品服务
-        List<ItemDTO> items = itemClient.queryItemByIds(itemIds.stream().toList());
+        List<ItemDTO> items = itemClient.queryItemByIds(itemIds.stream().collect(Collectors.toList()));
         if (items == null || items.isEmpty()) {
             return;
         }

@@ -6,6 +6,8 @@ import com.hmall.trade.mapper.OrderDetailMapper;
 import com.hmall.trade.service.IOrderDetailService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 订单详情表 服务实现类
@@ -13,5 +15,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, OrderDetail> implements IOrderDetailService {
-
+    // 根据 orderId 查询订单详情
+    @Override
+    public List<OrderDetail> getByOrderId(Long orderId) {
+        return this.lambdaQuery()
+                .eq(OrderDetail::getOrderId, orderId)
+                .list();
+    }
 }

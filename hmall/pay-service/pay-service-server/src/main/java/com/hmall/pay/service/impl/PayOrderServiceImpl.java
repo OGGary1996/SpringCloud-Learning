@@ -3,6 +3,8 @@ package com.hmall.pay.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hmall.common.domain.RabbitMQ;
+import com.hmall.common.domain.dto.PaySuccessDTO;
 import com.hmall.common.exception.BizIllegalException;
 import com.hmall.common.utils.BeanUtils;
 import com.hmall.common.utils.UserContext;
@@ -15,6 +17,9 @@ import com.hmall.pay.service.IPayOrderService;
 import com.hmall.trade.api.client.OrderClient;
 import com.hmall.user.api.client.UserClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,8 +35,10 @@ import java.time.LocalDateTime;
 public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> implements IPayOrderService {
 
     private final UserClient userClient;
-
+    // 优化为异步调用,不再需要OpenFeign客户端
     private final OrderClient orderClient;
+    // RabbitMQ模板对象
+    private final RabbitTemplate rabbitTemplate;
 
     @Override
     public String applyPayOrder(PayApplyDTO applyDTO) {
@@ -59,8 +66,26 @@ public class PayOrderServiceImpl extends ServiceImpl<PayOrderMapper, PayOrder> i
             throw new BizIllegalException("交易已支付或关闭！");
         }
         // 5.修改订单状态
-        orderClient.markOrderPaySuccess(po.getBizOrderNo());
-
+        // orderClient.markOrderPaySuccess(po.getBizOrderNo());
+        // 从同步调用优化为异步调用，作为生产者，将消息发送到Exchange中
+        // 5.1 构建消息内容
+        PaySuccessDTO paySuccessDTO = PaySuccessDTO.builder()
+                .orderId(po.getBizOrderNo())
+                .status(2) // 2表示支付成功
+                .payTime(LocalDateTime.now())
+                .build();
+        // 5.2 构建消息的唯一ID,这里以支付单ID作为消息ID
+        CorrelationData correlationData = new CorrelationData(String.valueOf(po.getId()));
+        // 5.3 发送消息到指定的交换机和路由键
+        rabbitTemplate.convertAndSend(RabbitMQ.EXCHANGE_PAY_DIRECT,
+                RabbitMQ.ROUTING_PAY_SUCCESS,
+                paySuccessDTO,
+                // 设置消息为持久化,核心代码是 setDeliveryMode(MessageDeliveryMode.PERSISTENT)
+                msg -> {
+                    msg.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+                    return msg;
+                },
+                correlationData);
     }
 
     public boolean markPayOrderSuccess(Long id, LocalDateTime successTime) {

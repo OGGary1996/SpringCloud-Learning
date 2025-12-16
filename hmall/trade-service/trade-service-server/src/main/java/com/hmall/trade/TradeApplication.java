@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @MapperScan("com.hmall.trade.mapper")
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.hmall.item.api", "com.hmall.cart.api"})
+@EnableFeignClients(basePackages = {"com.hmall.item.api", "com.hmall.cart.api", "com.hmall.pay.api"})
 public class TradeApplication {
     public static void main(String[] args) {
         SpringApplication.run(TradeApplication.class, args);

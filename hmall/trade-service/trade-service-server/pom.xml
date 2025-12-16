@@ -30,6 +30,13 @@
             <artifactId>cart-service-api</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!-- pay-service-api -->
+        <dependency>
+            <groupId>com.heima</groupId>
+            <artifactId>pay-service-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!--common-->
         <dependency>
             <groupId>com.heima</groupId>
@@ -77,6 +84,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
          </dependency>
+
+       <!-- 启用 seata -->
+       <dependency>
+           <groupId>com.alibaba.cloud</groupId>
+           <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+       </dependency>
 
     </dependencies>
 </project>

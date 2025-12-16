@@ -17,5 +17,5 @@ logs/
 Thumbs.db
 
 # config files
-**/src/main/resources/application-*.yaml
+**/src/main/resources/bootstrap-*.yaml
 **/src/main/resources/backup/*.yaml
