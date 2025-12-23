@@ -38,6 +38,9 @@ spring:
           - data-id: shared-rabbitmq.yaml
             group: SHARED_GROUP
             refresh: true
+          - data-id: shared-es.yaml
+            group: SHARED_GROUP
+            refresh: true
 
     # sentinel 配置
     sentinel:

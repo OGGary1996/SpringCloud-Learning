@@ -37,6 +37,8 @@
         <mybatis-plus.version>3.4.2</mybatis-plus.version>
         <hutool.version>5.8.11</hutool.version>
         <mysql.version>8.0.23</mysql.version>
+        <!-- 覆盖 SpringBoot 父工程中的es原始版本 -->
+        <elasticsearch.version>7.17.4</elasticsearch.version>
     </properties>
 
     <!-- 对依赖包进行管理 -->
@@ -76,6 +78,13 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <!-- Elasticsearch - rest client -->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <dependencies>
